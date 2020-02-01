@@ -167,14 +167,14 @@ function eaten() {
 
 function saveToFirebase(email) {
   var emailObject = {
-    email: email 
+    email: email
   };
-  
+
   firebase.database().ref('subscription-entries').push().set(emailObject).then(function(snapshot) {
-    console.log("Sucess");
+    console.log("Success");
   }, function(error) {
     console.log("error");
-    
+
   });
 }
 
