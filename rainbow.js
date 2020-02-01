@@ -6,7 +6,7 @@ let color;
 function setup() {
   createCanvas(450, 450);
   colorMode(HSB, 255);
-  slider = createSlider(0, 100, 20);
+  slider = createSlider(0, 60, 30);
   slider.position(20, 530);
   button = createButton("Uppdatera / Starta")
   button.position(20, 570);
