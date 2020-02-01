@@ -164,3 +164,18 @@ function eaten() {
     };
   }
 }
+
+function saveToFirebase(email) {
+  var emailObject = {
+    email: email 
+  };
+  
+  firebase.database().ref('subscription-entries').push().set(emailObject).then(function(snapshot) {
+    console.log("Sucess");
+  }, function(error) {
+    console.log("error");
+    
+  });
+}
+
+saveToFirebase(email);
