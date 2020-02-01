@@ -178,4 +178,4 @@ function saveToFirebase(email) {
   });
 }
 
-saveToFirebase(email);
+saveToFirebase("test.se");
