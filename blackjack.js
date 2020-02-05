@@ -181,6 +181,10 @@ function initBg() {
   white = color(255, 255, 255);
   green = color(30, 255, 30);
 
+  bettar = createInput("").attribute('placeholder', 'Betta här');
+  bettar.attribute('type', 'number');
+  bettar.position(85, 448);
+
   def = textFont("Arial");
   font = textFont("Arial Black");
 
@@ -195,9 +199,7 @@ function initBg() {
 function initi() {
     spelareKort = [];
     dealerKort = [];
-    bettar = createInput("").attribute('placeholder', 'Betta här');
-    bettar.attribute('type', 'number');
-    bettar.position(85, 448);
+
     xfactor = round(1626 / 13);
     yfactor = round(906 / 5);
 
