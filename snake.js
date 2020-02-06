@@ -13,12 +13,14 @@ let dir = {
 };
 
 let apple;
-
+let cnv;
 function setup() {
   xpos.push(snake.x);
   ypos.push(snake.y);
 
-  createCanvas(400, 400)
+  cnv = createCanvas(600, 600)
+  var x = (windowWidth - width) / 2;
+  cnv.position(x, 65);
   initGrid();
   xsize = (width - 1) / cols;
   ysize = (height - 1) / rows;

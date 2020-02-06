@@ -16,12 +16,12 @@ let hide = true;
 
 let starta, hit, stopp, restart, betta;
 let suits, blackjack, card;
-let def, font;
+
 let spelareKort = [];
 let dealerKort = [];
 let symboler = [];
 let bettar;
-
+let cnv;
 function preload() {
 
   blackjack = loadImage("https://i.imgur.com/XU6oVyh.png");
@@ -31,12 +31,13 @@ function preload() {
 
 function setup() {
 
-  createCanvas(400, 400);
+  cnv = createCanvas(600, 600);
+  cnv.position((windowWidth-width)/2, 65);
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   initBg();
   initi();
-  textFont(def);
+
 
 }
 
@@ -48,9 +49,11 @@ function draw() {
     drawPlay();
   if (GAME == OVER)
     drawOver();
+
+  //
+  textSize(20);
   textAlign(LEFT, BOTTOM);
-  textSize(32);
-  text("Saldo: " + saldo, 0, 400);
+  text("Saldo: " + saldo, 0, height);
   textAlign(CENTER, CENTER);
 
 }
@@ -59,7 +62,7 @@ function drawStart() {
   background(255);
   gradient(black, red);
   regn();
-  image(blackjack, 200, 100);
+  image(blackjack, width / 2, height / 4);
   starta.display();
 }
 
@@ -70,7 +73,7 @@ function drawPlay() {
   if (!bettat)
     betta.display();
   else
-    text("Aktuellt bet: " + bet, 200, 265);
+    text("Aktuellt bet: " + bet, width / 2, 2 * height / 3);
   textSize(24);
   noStroke();
   if (spelare >= 21 || dealer >= 21) {
@@ -78,15 +81,18 @@ function drawPlay() {
     flytta();
     GAME = OVER;
   }
+  let ssurprise, dsurprise;
   if (bettat) {
-    fill(white);
-    text("Dealer:  " + dealer, 75, 75);
-    text("Spelare: " + spelare, 75, 175);
+    ssurprise = spelare.toString();
+    dsurprise = dealer.toString();
   } else {
-    fill(white);
-    text("Dealer:  X", 75, 75);
-    text("Spelare: X", 75, 175);
+    ssurprise = "X"
+    dsurprise = "X"
   }
+  fill(white);
+  text("Dealer: " + dsurprise, 0.15 * width, 0.2 * height);
+  text("Spelare: " + ssurprise, 0.15 * width, 0.4 * height);
+
   for (var k in dealerKort)
     dealerKort[k].display();
   for (var k in spelareKort)
@@ -102,16 +108,16 @@ function drawOver() {
     regn();
   textSize(16);
   fill(black);
-  text("Dealer", 200, 40);
+  text("Dealer", width / 2, height * 0.2);
   fill(red);
-  text("Spelare", 200, 360);
+  text("Spelare", width / 2, height * 0.8);
   textSize(16);
   fill(255);
   textLeading(18);
-  text(vinnare, 200, 200);
+  text(vinnare, width / 2, (height / 2));
   textSize(20);
   fill(black);
-  text(dealer, 200, 170);
+  text(dealer, width / 2, (height * 0.4));
   for (var k in dealerKort)
     dealerKort[k].display();
   for (var k in spelareKort)
@@ -119,7 +125,7 @@ function drawOver() {
   restart.display();
   textSize(20);
   fill(red);
-  text(spelare, 200, 230);
+  text(spelare, width / 2, (height * 0.6));
 }
 
 function mousePressed() {
@@ -183,10 +189,16 @@ function initBg() {
 
   bettar = createInput("").attribute('placeholder', 'Betta här');
   bettar.attribute('type', 'number');
-  bettar.position(85, 448);
+  bettar.style('color', 'black');
+  bettar.style('width', '100px');
+  bettar.style('height', '18px');
+  bettar.style('border', '2px solid black');
+  bettar.style('background-color', '#ff2828');
+  bettar.style('border-radius', '4px');
+  bettar.position((windowWidth/2) - (width / 3.2), height + 38);
+  bettar.value(10);
 
-  def = textFont("Arial");
-  font = textFont("Arial Black");
+
 
   suits.resize(100, 100);
   let tempSuits = [suits.get(50,  0, 50, 50), suits.get(0,  0, 50, 50),
@@ -203,15 +215,15 @@ function initi() {
     xfactor = round(1626 / 13);
     yfactor = round(906 / 5);
 
-    starta = new Knapp(150, 175, 100, 50, "Starta", red, black);
-    hit = new Knapp(234, 300, 100, 50, "Nytt kort", white, green);
-    stopp = new Knapp(66, 300, 100, 50, "Stanna", white, red);
-    restart = new Knapp(345, 345, 50, 50, "Spela\nigen", white, black);
-    betta = new Knapp(160, 250, 80, 30, "Betta Här", white, black);
+    starta = new Knapp((width / 2) - 50, (height / 2) - 25, 100, 50, "Starta", red, black);
+    hit = new Knapp((2 * width / 3) - 50, 0.75 * height, 100, 50, "Nytt kort", white, green);
+    stopp = new Knapp((width / 3)-50, height * 0.75, 100, 50, "Stanna", white, red);
+    restart = new Knapp(width - 80, height - 80, 60, 60, "Spela\nigen", white, black);
+    betta = new Knapp((width / 2) - 55, 0.625 * height, 110, 30, "Acceptera bet", white, black);
 
-    dealerKort.push(new Kort("dealer", 185, 200));
-    spelareKort.push(new Kort("spelare", 185, 200));
-    spelareKort.push(new Kort("spelare", 185, 200));
+    dealerKort.push(new Kort("dealer", 0.4625 * width, height / 2));
+    spelareKort.push(new Kort("spelare", 0.4625 * width, height / 2));
+    spelareKort.push(new Kort("spelare", 0.4625 * width, height / 2));
 
 }
 
@@ -290,14 +302,14 @@ class Knapp {
     }
     if (bettat || this == betta || this == starta) {
       if (mouseOn(this)) {
-        textFont(font);
+
         fill((this.c >> 16 & 0xFF) - 50, (this.c >> 8 & 0xFF) - 50, (this.c & 0xFF) - 50);
       } else {
-        textFont(def);
+
         fill(this.c);
       }
     } else {
-      textFont(def);
+
       fill((this.c >> 16 & 0xFF) - 50, (this.c >> 8 & 0xFF) - 50, (this.c & 0xFF) - 50);
     }
 
@@ -308,28 +320,28 @@ class Knapp {
     textSize(16);
     textLeading(16);
     text(this.txt, this.x + this.w/2, this.y + this.h/2.2);
-    textFont(def);
+
   }
 }
 
 function flytta() {
   for (var k in spelareKort) {
-    spelareKort[k].x = 150 + spelareKort[k].antal * (spelareKort[k].buffer + spelareKort[k].w);
-    spelareKort[k].y = 310;
+    spelareKort[k].x = (width / 2) - (width / 6) + spelareKort[k].antal * (spelareKort[k].buffer + spelareKort[k].w);
+    spelareKort[k].y = 0.7 * height;
   }
   for (var k in dealerKort) {
-    dealerKort[k].x = 150 + dealerKort[k].antal * (dealerKort[k].buffer + dealerKort[k].w);
-    dealerKort[k].y = 90;
+    dealerKort[k].x = (width / 2) - (width / 6) + dealerKort[k].antal * (dealerKort[k].buffer + dealerKort[k].w);
+    dealerKort[k].y = 0.3 * height;
   }
 }
 
 class Kort {
   constructor(owner, x, y) {
     this.w = round(width / 10);
-    this.h = round(0.15 * height);
+    this.h = round(0.14 * height);
     this.buffer = 10;
     this.owner = owner;
-    this.x = 150;
+    this.x = width * 0.35;
     this.y = y;
     this.val = int(random(1, 14)).toString();  //heltal mellan 1-13 för nummer på kort
     this.blackjackVal = int(this.val) > 10 ? 10 : int(this.val);  //värde på kortet enligt regler. Ess = 1
@@ -359,7 +371,7 @@ class Kort {
     }
     if (this.owner == "spelare") {
       spelare += this.blackjackVal;
-      this.y = 0.45 * height;
+      this.y = 0.4 * height;
       this.antal = spelareKort.length;
     } else {
 
