@@ -1,8 +1,14 @@
-let grid = [], xpos = [], ypos = [];
-let cols = 20, rows = 20;
+let grid = [],
+  xpos = [],
+  ypos = [];
+let cols = 20,
+  rows = 20;
 let xsize, ysize;
-let tick = 0, interval = 2,  len = 5;
+let tick = 0,
+  interval = 2,
+  len = 5;
 var over = false;
+
 let snake = {
   x: 0,
   y: 5
@@ -14,13 +20,17 @@ let dir = {
 
 let apple;
 let cnv;
+
 function setup() {
   xpos.push(snake.x);
   ypos.push(snake.y);
-
-  cnv = createCanvas(600, 600)
+  textAlign(CENTER, CENTER);
+  let smol = windowWidth / 2;
+  if (smol > windowHeight / 2);
+  smol = windowHeight / 2;
+  cnv = createCanvas(smol, smol)
   var x = (windowWidth - width) / 2;
-  cnv.position(x, 65);
+  cnv.position(185, 70);
   initGrid();
   xsize = (width - 1) / cols;
   ysize = (height - 1) / rows;
@@ -34,22 +44,29 @@ function setup() {
 
 function draw() {
 
-  background(255);
-  update();
-  updateSnake();
 
-  collision();
-  eaten();
 
-  render();
 
   if (over) {
-    textSize(56);
-    stroke(0);
-    fill(255, 100, 100);
-    text("GAME OVER", 50, 200);
-    text("SCORE: " + (xpos.length - 1).toString(), 50, 300);
-    noLoop();
+    textSize(width / 10);
+    stroke(255, 50, 50);
+    fill(255, 50, 50);
+    text("SCORE: " + (xpos.length - 1).toString(), width / 2, height / 2);
+    textSize(width / 20);
+    fill(0);
+    stroke(255);
+    text("Press Enter to Play Again", width / 2, 0.65 * height);
+    //text("SCORE: " + (xpos.length - 1).toString(), 50, 300);
+  } else {
+    background(200);
+
+    updateSnake();
+
+    collision();
+    eaten();
+
+    render();
+    update();
   }
 
 }
@@ -65,22 +82,25 @@ function initGrid() {
 
 function render() {
   grid[apple.x][apple.y] = 2;
-
+  noStroke();
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
-      if (grid[i][j] == 1) {
-        fill(0, 0, 0);
-      } else if (grid[i][j] == 0) {
-        fill(255, 255, 255);
-      } else if (grid[i][j] == 2) {
-        fill(255, 50, 50);
-      } else if (grid[i][j] == 3) {
-        fill(0, 50, 255);
+
+      if (grid[i][j] != 0) {
+        if (grid[i][j] == 1) {
+          fill(50);
+        } else if (grid[i][j] == 2) {
+          fill(255, 50, 50);
+        } else if (grid[i][j] == 3) {
+          fill(0, 50, 255);
+        }
+        rect(i * xsize, j * ysize, xsize, ysize);
       }
-      stroke(200);
-      rect(i * xsize, j * ysize, xsize, ysize);
     }
   }
+
+
+
 }
 
 function update() {
@@ -114,6 +134,7 @@ function update() {
       ypos.pop();
     }
     tick = 0;
+
   } else {
     tick++;
   }
@@ -128,28 +149,49 @@ function updateSnake() {
   grid[xpos[0]][ypos[0]] = 3;
 }
 
+
+
 function keyPressed() {
-  if (keyCode == '87' && dir.y != 1 && dir.x != 0) {
-    dir.x = 0;
-    dir.y = -1;
-  }
-  if (keyCode == '83' && dir.y != -1 && dir.x != 0) {
-    dir.x = 0;
-    dir.y = 1;
-  }
-  if (keyCode == '68' && dir.x != -1 && dir.y != 0) {
-    dir.x = 1;
-    dir.y = 0;
-  }
-  if (keyCode == '65' && dir.x != 1 && dir.y != 0) {
-    dir.x = -1;
-    dir.y = 0;
+  if (!over) {
+    if (keyCode == '87') {
+      dir.x = 0;
+      dir.y = -1;
+    }
+    if (keyCode == '83') {
+      dir.x = 0;
+      dir.y = 1;
+    }
+    if (keyCode == '68') {
+      dir.x = 1;
+      dir.y = 0;
+    }
+    if (keyCode == '65') {
+      dir.x = -1;
+      dir.y = 0;
+    }
+
+  } else if (key == ' ' || keyCode == ENTER) {
+    over = false;
+    initGrid();
+    len = 5;
+    xpos = [];
+    ypos = [];
+    snake = {
+      x: 0,
+      y: 5
+    };
+    dir = {
+      x: 1,
+      y: 0
+    };
+    xpos.push(snake.x);
+    ypos.push(snake.y);
   }
 
 }
 
 function collision() {
-  for (var i = 1; i <  xpos.length; i++) {
+  for (var i = 1; i < xpos.length; i++) {
     if (snake.x == xpos[i] && snake.y == ypos[i]) {
       over = true;
     }
