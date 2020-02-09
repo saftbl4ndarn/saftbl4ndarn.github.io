@@ -31,14 +31,32 @@ function preload() {
 
 function setup() {
 
-  cnv = createCanvas(600, 600);
-  cnv.position((windowWidth-width)/2, 65);
+  let smol = windowWidth / 1.4;
+  if (smol > windowHeight / 1.4) {
+  smol = windowHeight / 1.4;
+}
+  cnv = createCanvas(smol, smol)
+
+
+  cnv.style('float', 'left')
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   initBg();
   initi();
 
 
+}
+
+function windowResized() {
+  let smol = windowWidth / 2;
+  if (smol > windowHeight / 2) {
+  smol = windowHeight / 2;
+}
+  cnv = resizeCanvas(smol, smol)
+
+
+    bettar.position(290, 1.4 * height);
+  initi();
 }
 
 function draw() {
@@ -195,7 +213,7 @@ function initBg() {
   bettar.style('border', '2px solid black');
   bettar.style('background-color', '#ff2828');
   bettar.style('border-radius', '4px');
-  bettar.position((windowWidth/2) - (width / 3.2), height + 38);
+  bettar.position(290, height + 45);
   bettar.value(10);
 
 

@@ -11,6 +11,7 @@ var start;
 var current = 0;
 
 function setup() {
+
   createCanvas(400, 400);
   mitt = width / 2;
   ssize = 0.40 * width;
@@ -32,7 +33,7 @@ function setup() {
 }
 
 function draw() {
-  background(55);
+  background(105, 105, 105);
 
 
   current = millis() - start;

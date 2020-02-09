@@ -26,11 +26,13 @@ function setup() {
   ypos.push(snake.y);
   textAlign(CENTER, CENTER);
   let smol = windowWidth / 2;
-  if (smol > windowHeight / 2);
+  if (smol > windowHeight / 2) {
   smol = windowHeight / 2;
+}
   cnv = createCanvas(smol, smol)
+  cnv.style('float', 'left')
   var x = (windowWidth - width) / 2;
-  cnv.position(185, 70);
+  //cnv.position(185, 70);
   initGrid();
   xsize = (width - 1) / cols;
   ysize = (height - 1) / rows;
@@ -41,6 +43,18 @@ function setup() {
   };
 }
 
+function windowResized() {
+  let smol = windowWidth / 2;
+  if (smol > windowHeight / 2) {
+  smol = windowHeight / 2;
+}
+  cnv = resizeCanvas(smol, smol)
+  var x = (windowWidth - width) / 2;
+  //cnv.position(185, 70);
+  initGrid();
+  xsize = (width - 1) / cols;
+  ysize = (height - 1) / rows;
+}
 
 function draw() {
 

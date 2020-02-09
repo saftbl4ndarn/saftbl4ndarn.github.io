@@ -1,18 +1,47 @@
 #ett {
-  color: navy;
+  color: LawnGreen;
+  font-size: 32px;
   text-decoration: none;
   font-family: "Comic Sans MS", cursive, sans-serif;
-  font-size: 32px;
+  width: 100%;
 }
+
 body {
-  background-color: azure;
+  background-color: DimGray;
 }
 
 
+
+.menu {
+
+
+  margin-top: auto;
+  margin-bottom: auto;
+
+  font-size: 20px;
+
+
+}
+
+.ad {
+  float: left;
+  margin-right: 10px;
+}
 
 .link {
-  color: blue;
-  font-size: 20px;
   font-family: "Arial", sans-serif;
   text-decoration: none;
+  color: white;
+}
+
+@media only screen and (max-width:1080px) {
+  /* For mobile phones: */
+  .menu {
+    font-size: 5vw;
+    text-align: center;
+  }
+  #ett {
+    font-size: 10vw;
+  }
+  
 }
