@@ -23,7 +23,7 @@ let cnv;
 
 function preload() {
   best = float(localStorage.getItem("snakehighscore")) || 0;
-
+  
 }
 
 function setup() {

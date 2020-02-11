@@ -8,7 +8,7 @@ let spelare = 0;
 let dealer = 0;
 let vinnare;
 let pressed = false;
-let saldo = 100;
+let saldo;
 let bet = 0;
 let bettat = false;
 let vinst = 'd';
@@ -24,6 +24,12 @@ let bettar;
 let cnv;
 function preload() {
 
+  saldo = float(localStorage.getItem("blackjacksaldo")) || 1000;
+
+  if (saldo <= 0) {
+    saldo = 999;
+  }
+
   blackjack = loadImage("https://i.imgur.com/XU6oVyh.png");
   card = loadImage("https://i.imgur.com/n6K13ID.gif");
   suits = loadImage("https://i.imgur.com/blUrWaX.png");
@@ -36,9 +42,8 @@ function setup() {
   smol = windowHeight / 1.4;
 }
   cnv = createCanvas(smol, smol)
-
-
   cnv.style('float', 'left')
+
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
   initBg();
@@ -48,9 +53,9 @@ function setup() {
 }
 
 function windowResized() {
-  let smol = windowWidth / 2;
-  if (smol > windowHeight / 2) {
-  smol = windowHeight / 2;
+  let smol = windowWidth / 1.4;
+  if (smol > windowHeight / 1.4) {
+  smol = windowHeight / 1.4;
 }
   cnv = resizeCanvas(smol, smol)
 
@@ -306,6 +311,7 @@ class Knapp {
         alert("BETTA ENDAST NUMMER FÖR FAN");
       }
       saldo -= bet;
+      localStorage.setItem("blackjacksaldo", saldo.toString());
       pressed = false;
       bettat = true;
       hide = false;
@@ -316,6 +322,7 @@ class Knapp {
       GAME = OVER;
       flytta();
       vinnare = kontrolleraVinnare();
+      localStorage.setItem("blackjacksaldo", saldo.toString());
       pressed = false;
     }
     if (bettat || this == betta || this == starta) {

@@ -14,15 +14,24 @@ let update = true;
 
 function preload() {
   saldo = float(localStorage.getItem("highscore")) || 1000;
-
+  if (saldo <= 0) {
+    saldo = 999;
+  }
 }
 
 function setup() {
+  let smol = windowWidth / 1.4;
+  if (smol > windowHeight / 1.4) {
+  smol = windowHeight / 1.4;
+}
+  cnv = createCanvas(smol, smol)
+  cnv.style('float', 'left')
+
 
   dubbla = createButton("2X");
   halvera = createButton("1/2X");
-  dubbla.position(150, 350);
-  halvera.position(190, 350);
+  dubbla.position(0.31 * width + 175, 0.78 * height);
+  halvera.position(0.38 * width + 175, 0.78 * height);
   dubbla.style('border', 'none');
   dubbla.style('border-radius', '5px');
   dubbla.style('padding', '10px 10px');
@@ -34,7 +43,7 @@ function setup() {
   halvera.style('background-color', '#ffffff');
 
   rulla = createButton("Roll");
-  rulla.position(75, 400);
+  rulla.position(0.18 *  width + 175, 0.88 * height);
   rulla.style('border', 'none');
   rulla.style('border-radius', '5px');
   rulla.style('padding', '10px 10px');
@@ -42,7 +51,7 @@ function setup() {
 
   betta = createInput("10");
   betta.attribute("type", "number");
-  betta.position(75, 350);
+  betta.position(0.18 *  width + 175, 0.78 * height);
   betta.style('width', '50px')
   betta.style('border', 'none');
   betta.style('border-radius', '5px');
@@ -50,12 +59,28 @@ function setup() {
   betta.style('background-color', '#ffffff');
   textAlign(LEFT);
   noStroke();
-  createCanvas(400, 400);
-  init();
 
+
+
+init();
   rulla.mousePressed(roll);
   dubbla.mousePressed(dubblera);
   halvera.mousePressed(halva);
+}
+
+function windowResized() {
+  let smol = windowWidth / 1.4;
+  if (smol > windowHeight / 1.4) {
+  smol = windowHeight / 1.4;
+}
+  cnv = resizeCanvas(smol, smol)
+  betta.position(0.18 *  width + 175, 0.78 * height);
+  rulla.position(0.18 *  width + 175, 0.88 * height);
+  dubbla.position(0.31 * width + 175, 0.78 * height);
+  halvera.position(0.38 * width + 175, 0.78 * height);
+
+  init();
+
 }
 
 function draw() {
@@ -138,10 +163,10 @@ function draw() {
   green.display();
   black.display();
 
-  textAlign(LEFT);
+  textAlign(CENTER, CENTER);
   textSize(16);
   fill(255, 199, 15);
-  text("Ditt saldo: " + saldo + "kr", 250, 305);
+  text("Ditt saldo: " + saldo + "kr", 0.78 * width, 0.7 * height);
   localStorage.setItem("highscore", saldo.toString());
 }
 
@@ -167,9 +192,9 @@ function init() {
     }
   }
   rull[0] = new Box(0, color(100, 255, 100), 0);
-  red = new Kvadrat(75, 200, 50, 50, color(255, 0, 0), false);
-  green = new Kvadrat(175, 200, 50, 50, color(100, 255, 100), false);
-  black = new Kvadrat(275, 200, 50, 50, color(0, 0, 0), false);
+  red = new Kvadrat(0.25 * width - 25, height / 2, 50, 50, color(255, 0, 0), false);
+  green = new Kvadrat(0.5 * width - 25, height / 2, 50, 50, color(100, 255, 100), false);
+  black = new Kvadrat(0.75 * width - 25, height / 2, 50, 50, color(0, 0, 0), false);
 }
 
 function roll() {
@@ -223,7 +248,7 @@ class Kvadrat {
       noStroke();
     }
     fill(this.c);
-    rect(this.x, this.y, this.w, this.h);
+    rect(this.x, this.y, this.w, this.h, 8);
     noStroke();
   }
 }
@@ -239,23 +264,23 @@ class Box {
   	this.x = plats;
     this.kulor = kulor;
     this.n = n;
-    this.w = width/8;
+    this.w = width / 8;
     this.h = width / 8 + width / 16;
   }
 
 
   update() {
   	this.x -= v;
-    if (this.x < -50) {
-    	this.x += 50 * (rull.length);
+    if (this.x < -this.w) {
+    	this.x += this.w * (rull.length);
     }
   }
 
   display() {
   	fill(this.kulor);
     rect(this.x, 0, this.w, this.h);
-    fill(255);
-    textSize(12);
+    //fill(255);
+    //textSize(12);
     //text(this.n, this.x + this.w / 2 - 2, this.h / 2);
   }
 
