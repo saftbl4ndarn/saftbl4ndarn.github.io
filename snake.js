@@ -167,19 +167,19 @@ function updateSnake() {
 
 function keyPressed() {
   if (!over) {
-    if (keyCode == '87') {
+    if (keyCode == '87' || keyCode == UP_ARROW) {
       dir.x = 0;
       dir.y = -1;
     }
-    if (keyCode == '83') {
+    if (keyCode == '83' || keyCode == DOWN_ARROW) {
       dir.x = 0;
       dir.y = 1;
     }
-    if (keyCode == '68') {
+    if (keyCode == '68' || keyCode == RIGHT_ARROW) {
       dir.x = 1;
       dir.y = 0;
     }
-    if (keyCode == '65') {
+    if (keyCode == '65' || keyCode == LEFT_ARROW) {
       dir.x = -1;
       dir.y = 0;
     }
