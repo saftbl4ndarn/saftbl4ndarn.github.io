@@ -212,6 +212,7 @@ function collision() {
       if (score > best) {
         best = score;
         document.cookie = best;
+      }
     }
   }
 }
