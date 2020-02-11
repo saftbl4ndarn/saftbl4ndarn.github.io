@@ -21,8 +21,13 @@ let best = 0;
 let apple;
 let cnv;
 
+function preload() {
+  best = float(localStorage.getItem("snakehighscore")) || 0;
+
+}
+
 function setup() {
-  best = int(document.cookie) || 0;
+
   console.log(best);
   xpos.push(snake.x);
   ypos.push(snake.y);
@@ -213,7 +218,7 @@ function collision() {
       over = true;
       if ((xpos.length - 1) > best) {
         best = (xpos.length - 1);
-        document.cookie = best;
+        localStorage.setItem("snakehighscore", best.toString());
       }
     }
   }

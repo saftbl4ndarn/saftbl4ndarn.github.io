@@ -4,27 +4,58 @@ let v = 30;
 let a = 0;
 let intervall = 0;
 let current = 0;
-let saldo = 1000;
-let bet, rulla;
+let saldo;
+let betta, rulla, dubbla, halvera;
 let red, green, black;
 let rb = 0;
 let gb = 0;
 let bb = 0;
 let update = true;
 
-function setup() {
-  rulla = createButton("ROLL");
-  rulla.position(50, 390);
-  rulla.mousePressed(roll);
+function preload() {
+  saldo = float(localStorage.getItem("highscore")) || 1000;
 
-  bet = createInput("0");
-  bet.position(50, 360);
-  bet.size(75);
+}
+
+function setup() {
+
+  dubbla = createButton("2X");
+  halvera = createButton("1/2X");
+  dubbla.position(150, 350);
+  halvera.position(190, 350);
+  dubbla.style('border', 'none');
+  dubbla.style('border-radius', '5px');
+  dubbla.style('padding', '10px 10px');
+  dubbla.style('background-color', '#ffffff');
+
+  halvera.style('border', 'none');
+  halvera.style('border-radius', '5px');
+  halvera.style('padding', '10px 10px');
+  halvera.style('background-color', '#ffffff');
+
+  rulla = createButton("Roll");
+  rulla.position(75, 400);
+  rulla.style('border', 'none');
+  rulla.style('border-radius', '5px');
+  rulla.style('padding', '10px 10px');
+  rulla.style('background-color', '#ffffff');
+
+  betta = createInput("10");
+  betta.attribute("type", "number");
+  betta.position(75, 350);
+  betta.style('width', '50px')
+  betta.style('border', 'none');
+  betta.style('border-radius', '5px');
+  betta.style('padding', '10px 10px');
+  betta.style('background-color', '#ffffff');
   textAlign(LEFT);
   noStroke();
   createCanvas(400, 400);
   init();
 
+  rulla.mousePressed(roll);
+  dubbla.mousePressed(dubblera);
+  halvera.mousePressed(halva);
 }
 
 function draw() {
@@ -61,17 +92,17 @@ function draw() {
   }
 
   if (red.a == true) {
-    rb = parseInt(bet.value());
+    rb = float(betta.value());
   } else {
   	rb = 0;
   }
   if (green.a == true) {
-    gb = parseInt(bet.value());
+    gb = float(betta.value());
   } else {
   	gb = 0;
   }
   if (black.a == true) {
-    bb = parseInt(bet.value());
+    bb = float(betta.value());
   } else {
   	bb = 0;
   }
@@ -111,7 +142,19 @@ function draw() {
   textSize(16);
   fill(255, 199, 15);
   text("Ditt saldo: " + saldo + "kr", 250, 305);
+  localStorage.setItem("highscore", saldo.toString());
+}
 
+function dubblera() {
+  var temp = float(betta.value());
+  temp *= 2;
+  betta.value(temp.toString());
+}
+
+function halva() {
+  var temp = float(betta.value());
+  temp /= 2;
+  betta.value(temp.toString());
 }
 
 function init() {
@@ -130,7 +173,7 @@ function init() {
 }
 
 function roll() {
-  if (v == 30) {
+  if (v == 30 && float(betta.value()) > 0) {
   	if (red.a || green.a || black.a) {
     	a = 0.125;
     	saldo -= (rb + gb + bb);
