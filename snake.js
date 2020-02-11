@@ -8,7 +8,7 @@ let tick = 0,
   interval = 2,
   len = 5;
 var over = false;
-
+let best = int(document.cookie) || 0;
 let snake = {
   x: 0,
   y: 5
@@ -70,6 +70,7 @@ function draw() {
     fill(0);
     stroke(255);
     text("Press Enter to Play Again", width / 2, 0.65 * height);
+    text("Ditt Highscore: " + best, width / 2, 0.75 * height);
     //text("SCORE: " + (xpos.length - 1).toString(), 50, 300);
   } else {
     background(200);
@@ -208,6 +209,9 @@ function collision() {
   for (var i = 1; i < xpos.length; i++) {
     if (snake.x == xpos[i] && snake.y == ypos[i]) {
       over = true;
+      if (score > best) {
+        best = score;
+        document.cookie = best;
     }
   }
 }
