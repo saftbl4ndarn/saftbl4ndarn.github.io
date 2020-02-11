@@ -17,18 +17,20 @@ let dir = {
   x: 1,
   y: 0
 };
-
+let best = 0;
 let apple;
 let cnv;
 
 function setup() {
+  best = int(document.cookie) || 0;
+  console.log(best);
   xpos.push(snake.x);
   ypos.push(snake.y);
   textAlign(CENTER, CENTER);
   let smol = windowWidth / 2;
   if (smol > windowHeight / 2) {
-  smol = windowHeight / 2;
-}
+    smol = windowHeight / 2;
+  }
   cnv = createCanvas(smol, smol)
   cnv.style('float', 'left')
   var x = (windowWidth - width) / 2;
@@ -46,8 +48,8 @@ function setup() {
 function windowResized() {
   let smol = windowWidth / 2;
   if (smol > windowHeight / 2) {
-  smol = windowHeight / 2;
-}
+    smol = windowHeight / 2;
+  }
   cnv = resizeCanvas(smol, smol)
   var x = (windowWidth - width) / 2;
   //cnv.position(185, 70);
@@ -70,7 +72,7 @@ function draw() {
     fill(0);
     stroke(255);
     text("Press Enter to Play Again", width / 2, 0.65 * height);
-    //text("Ditt Highscore: " + best, width / 2, 0.75 * height);
+    text("Ditt Highscore: " + best, width / 2, 0.75 * height);
     //text("SCORE: " + (xpos.length - 1).toString(), 50, 300);
   } else {
     background(200);
@@ -209,10 +211,10 @@ function collision() {
   for (var i = 1; i < xpos.length; i++) {
     if (snake.x == xpos[i] && snake.y == ypos[i]) {
       over = true;
-      //if (score > best) {
-      //  best = score;
-       // document.cookie = best;
-      //}
+      if ((xpos.length - 1) > best) {
+        best = (xpos.length - 1);
+        document.cookie = best;
+      }
     }
   }
 }
