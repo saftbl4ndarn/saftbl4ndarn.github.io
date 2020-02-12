@@ -31,7 +31,7 @@ function setup() {
   dubbla = createButton("2X");
   halvera = createButton("1/2X");
   dubbla.position(0.32 * width + 175, 0.75 * height + 65);
-  halvera.position(0.39 * width + 175, 0.75 * height + 65);
+  halvera.position(0.4 * width + 175, 0.75 * height + 65);
   dubbla.style('border', 'none');
   dubbla.style('border-radius', '5px');
   dubbla.style('padding', '10px 10px');
@@ -77,7 +77,7 @@ function windowResized() {
   betta.position(0.18 *  width + 175, 0.75 * height + 65);
   rulla.position(0.18 *  width + 175, 0.88 * height + 65);
   dubbla.position(0.32 * width + 175, 0.75 * height + 65);
-  halvera.position(0.39 * width + 175, 0.75 * height + 65);
+  halvera.position(0.4 * width + 175, 0.75 * height + 65);
 
   init();
 
