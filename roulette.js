@@ -198,10 +198,14 @@ function init() {
 }
 
 function roll() {
-  if (v == 30 && float(betta.value()) > 0) {
+  if (v == 30 && float(betta.value()) > 0 && float(betta.value()) <= saldo) {
   	if (red.a || green.a || black.a) {
-    	a = 0.125;
-    	saldo -= (rb + gb + bb);
+
+      let tempBet = (rb + gb + bb);
+    	if (tempBet <= saldo) {
+        a = 0.125
+        saldo -= saldo;
+      }
   } else {
     v = 30;
     a = 0;

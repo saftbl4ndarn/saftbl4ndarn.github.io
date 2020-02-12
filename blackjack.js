@@ -303,13 +303,10 @@ class Knapp {
       bettat = false;
       hide = true;
     }
-    if (mouseOn(this) && mouseIsPressed && this == betta && pressed) {
-      try {
-        bet = int(bettar.value());
-      } catch(e) {
-        bet = 0;
-        alert("BETTA ENDAST NUMMER FÖR FAN");
-      }
+    if (mouseOn(this) && mouseIsPressed && this == betta && pressed && int(bettar.value()) > 0 && int(bettar.value()) <= saldo) {
+
+      bet = int(bettar.value());
+      
       saldo -= bet;
       localStorage.setItem("blackjacksaldo", saldo.toString());
       pressed = false;
