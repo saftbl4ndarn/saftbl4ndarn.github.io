@@ -30,8 +30,8 @@ function setup() {
 
   dubbla = createButton("2X");
   halvera = createButton("1/2X");
-  dubbla.position(0.31 * width + 175, 0.78 * height);
-  halvera.position(0.38 * width + 175, 0.78 * height);
+  dubbla.position(0.32 * width + 175, 0.75 * height + 65);
+  halvera.position(0.4 * width + 175, 0.75 * height + 65);
   dubbla.style('border', 'none');
   dubbla.style('border-radius', '5px');
   dubbla.style('padding', '10px 10px');
@@ -43,7 +43,7 @@ function setup() {
   halvera.style('background-color', '#ffffff');
 
   rulla = createButton("Roll");
-  rulla.position(0.18 *  width + 175, 0.88 * height);
+  rulla.position(0.18 *  width + 175, 0.88 * height + 65);
   rulla.style('border', 'none');
   rulla.style('border-radius', '5px');
   rulla.style('padding', '10px 10px');
@@ -51,7 +51,7 @@ function setup() {
 
   betta = createInput("10");
   betta.attribute("type", "number");
-  betta.position(0.18 *  width + 175, 0.78 * height);
+  betta.position(0.18 *  width + 175, 0.75 * height + 65);
   betta.style('width', '50px')
   betta.style('border', 'none');
   betta.style('border-radius', '5px');
@@ -74,10 +74,10 @@ function windowResized() {
   smol = windowHeight / 1.4;
 }
   cnv = resizeCanvas(smol, smol)
-  betta.position(0.18 *  width + 175, 0.78 * height);
-  rulla.position(0.18 *  width + 175, 0.88 * height);
-  dubbla.position(0.31 * width + 175, 0.78 * height);
-  halvera.position(0.38 * width + 175, 0.78 * height);
+  betta.position(0.18 *  width + 175, 0.75 * height + 65);
+  rulla.position(0.18 *  width + 175, 0.88 * height + 65);
+  dubbla.position(0.32 * width + 175, 0.75 * height + 65);
+  halvera.position(0.4 * width + 175, 0.75 * height + 65);
 
   init();
 
