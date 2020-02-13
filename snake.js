@@ -179,15 +179,15 @@ function keyPressed() {
       dir.x = 0;
       dir.y = -1;
     }
-    if ((keyCode == '83' || keyCode == DOWN_ARROW) && dir.y == 0) {
+    else if ((keyCode == '83' || keyCode == DOWN_ARROW) && dir.y == 0) {
       dir.x = 0;
       dir.y = 1;
     }
-    if ((keyCode == '68' || keyCode == RIGHT_ARROW) && dir.x == 0) {
+    else if ((keyCode == '68' || keyCode == RIGHT_ARROW) && dir.x == 0) {
       dir.x = 1;
       dir.y = 0;
     }
-    if ((keyCode == '65' || keyCode == LEFT_ARROW) && dir.x == 0) {
+    else if ((keyCode == '65' || keyCode == LEFT_ARROW) && dir.x == 0) {
       dir.x = -1;
       dir.y = 0;
     }
