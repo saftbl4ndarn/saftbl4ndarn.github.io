@@ -204,7 +204,7 @@ function roll() {
       let tempBet = (rb + gb + bb);
     	if (tempBet <= saldo) {
         a = 0.125
-        saldo -= saldo;
+        saldo -= tempBet;
       }
   } else {
     v = 30;
