@@ -35,7 +35,13 @@
     <hr>
   </div>
 
-
+  <p id="dim"></p>
+    <script type="text/javascript">
+      let x = window.innerWidth;
+      let y = window.innerHeight;
+      let text = "(" + x.toString() + ", " + y.toString() + ")";
+      document.getElementById('dim').innerHTML = text;
+    </script>
   
 
 </body>
